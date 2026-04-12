@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Engineering the Future of Flight: A Deep Dive into Active Thrust Vector Control (TVC)",
+    "url": "active-thrust-vector-control.html",
+    "category": "Control Systems",
+    "date": "June 2024",
+    "description": "Design and flight testing of a PID-controlled gimbal system for model rocket stabilization without aerodynamic surfaces.",
+    "image": "images/rocket thrust vector control.png"
+  },
+  {
+    "title": "Mastering the 'Middle Ground': A Technical Analysis of Hybrid Rocket Regression Rates",
+    "url": "hybrid-rocket-propulsion.html",
+    "category": "Propulsion",
+    "date": "June 2025",
+    "description": "A deep dive into the boundary layer physics of hybrid motors and the use of nano-energetic additives to enhance fuel regression.",
+    "image": "images/hybrid rocket engine.png"
+  },
+  {
+    "title": "Engineering the Next Generation of Spaceflight: A Modular 100 kN LCH4/LOX Propulsion System",
+    "url": "modular-methane-lox-rocket-propulsion-system-design.html",
+    "category": "Propulsion",
+    "date": "June 2025",
+    "description": "Thermochemical optimization and structural analysis of a modular cryogenic engine designed for multi-variant launch vehicles.",
+    "image": "images/modular rocket propulsion design.png"
+  },
+  {
+    "title": "Giving Wings to a Second Act: The Engineering Behind Passenger-to-Cargo (P2F) Conversions",
+    "url": "passenger-to-cargo-p2f-aircraft-conversion.html",
+    "category": "Aircraft Design",
+    "date": "June 2025",
+    "description": "Analyzing aerodynamic stability and structural reinforcement requirements for repurposing passenger airframes into freighters.",
+    "image": "images/aircraft design passenger to cargo.png"
+  },
+  {
+    "title": "From Design to Ignition: Engineering a Static Test Pad for Rocket Motors",
+    "url": "rocket-motor-static-test-pad-engineering-design.html",
+    "category": "Propulsion",
+    "date": "June 2022",
+    "description": "Design of a safety-critical DAQ system and structural mount for ground-testing solid rocket motor thrust profiles.",
+    "image": "images/rocket motor test pad.png"
+  },
+  {
+    "title": "Engineering the 'Brain' of a Rocket: Avionics Architecture and Simulation",
+    "url": "rocket-recovery-system-architecture.html",
+    "category": "Avionics",
+    "date": "June 2022",
+    "description": "Development of a modular Arduino-based avionics suite for real-time altitude calculation and parachute deployment logic.",
+    "image": "images/model rocket recovery system.png"
+  },
+  {
+    "title": "From Theory to CAD: Conceptualizing a High-Efficiency Micro Aerial Vehicle (MAV)",
+    "url": "micro-aerial-vehicle-aircraft-design.html",
+    "category": "Aircraft Design",
+    "date": "June 2023",
+    "description": "Iterative design process of a 1.5m wingspan MAV, including airfoil selection (NACA 1412) and SolidWorks modeling.",
+    "image": "images/UAV aircraft design.png"
+  },
+  {
+    "title": "Mastering the 'Explosion within an Explosion': The CFD of Deflagration-to-Detonation Transition (DDT)",
+    "url": "deflagration-to-detonation-transition.html",
+    "category": "Propulsion",
+    "date": "Ongoing",
+    "description": "High-fidelity CFD research on supersonic combustion regimes and shock-wave interactions for Pulse Detonation Engines.",
+    "image": "images/deflagration to detonation transition.png"
+  }
+]

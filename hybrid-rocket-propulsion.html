@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mastering the "Middle Ground" | Darsh B.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            serif: ['Playfair Display', 'ui-serif', 'Georgia', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Navbar animations */
+    .nav-animate-in {
+      animation: slideDownFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .nav-scrolled {
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      backdrop-filter: blur(12px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-transparent {
+      background-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(4px);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Mobile menu open states */
+    .mobile-menu-open {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      transform: translateY(0) !important;
+    }
+
+    /* Scroll Animations */
+    .scroll-fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .scroll-fade-left {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .scroll-fade-right {
+      opacity: 0;
+      transform: translateX(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .scroll-scale-up {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .in-view {
+      opacity: 1 !important;
+      transform: translate(0, 0) scale(1) !important;
+    }
+
+    /* Delays */
+    .delay-100 {
+      transition-delay: 100ms;
+    }
+
+    .delay-200 {
+      transition-delay: 200ms;
+    }
+
+    .delay-300 {
+      transition-delay: 300ms;
+    }
+
+    .delay-400 {
+      transition-delay: 400ms;
+    }
+
+    @keyframes slideDownFade {
+      from {
+        opacity: 0;
+        transform: translateY(-100px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-white text-[#1a1a1a] antialiased selection:bg-black selection:text-white min-h-screen">
+
+  <nav id="navbar"
+    class="fixed top-4 sm:top-6 left-0 right-0 z-50 mx-auto w-[95%] sm:w-[90%] max-w-6xl rounded-full px-5 sm:px-8 py-3 sm:py-5 transition-all duration-300 bg-white/70 shadow-sm backdrop-blur-sm border border-white/10 nav-animate-in">
+    <div class="flex items-center justify-between">
+      <a href="index.html" class="text-xl sm:text-2xl font-semibold tracking-tight text-black">
+        DARSH B.
+      </a>
+
+      <div class="hidden md:flex items-center space-x-6 lg:space-x-10">
+        <a href="index.html#about"
+          class="text-sm lg:text-base font-medium text-gray-600 hover:text-black transition-colors">About</a>
+        <a href="index.html#journey"
+          class="text-sm lg:text-base font-medium text-gray-600 hover:text-black transition-colors">Journey</a>
+        <a href="index.html#expertise"
+          class="text-sm lg:text-base font-medium text-gray-600 hover:text-black transition-colors">Expertise</a>
+        <a href="index.html#skills"
+          class="text-sm lg:text-base font-medium text-gray-600 hover:text-black transition-colors">Skills</a>
+        Send<a href="index.html#insights"
+          class="text-sm lg:text-base font-medium text-gray-600 hover:text-black transition-colors">Projects</a>
+        <a href="#contact"
+          class="bg-black text-white px-5 py-2.5 lg:px-6 lg:py-3 rounded-full text-sm lg:text-base font-medium hover:bg-gray-800 transition-colors shadow-lg shadow-black/10">
+          Get in Touch
+        </a>
+      </div>
+
+      <button id="mobile-menu-btn" class="md:hidden text-gray-600 focus:outline-none">
+        <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="block sm:w-[28px] sm:h-[28px]">
+          <line x1="4" x2="20" y1="12" y2="12" />
+          <line x1="4" x2="20" y1="6" y2="6" />
+          <line x1="4" x2="20" y1="18" y2="18" />
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="hidden sm:w-[28px] sm:h-[28px]">
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu"
+    class="fixed inset-0 z-40 bg-white pt-28 px-6 md:hidden transition-all duration-300 opacity-0 pointer-events-none -translate-y-4">
+    <div class="flex flex-col space-y-6">
+      <a href="index.html#about" class="mobile-link text-2xl font-medium text-gray-900">About</a>
+      <a href="index.html#journey" class="mobile-link text-2xl font-medium text-gray-900">Journey</a>
+      <a href="index.html#expertise" class="mobile-link text-2xl font-medium text-gray-900">Expertise</a>
+      <a href="index.html#skills" class="mobile-link text-2xl font-medium text-gray-900">Skills</a>
+      <a href="index.html#insights" class="mobile-link text-2xl font-medium text-gray-900">Insights</a>
+      <a href="#contact" class="mobile-link text-2xl font-medium text-gray-900">Contact</a>
+    </div>
+  </div>
+
+  <main class="pt-28 sm:pt-40 pb-12 bg-white relative">
+    <div class="container mx-auto px-5 sm:px-6 max-w-4xl">
+
+      <div class="mb-8 sm:mb-12 scroll-fade-up in-view">
+        <a href="projects.html"
+          class="inline-flex items-center gap-2 text-gray-500 text-sm sm:text-base hover:text-black font-medium transition-colors group mb-8 sm:mb-12">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="sm:w-[20px] sm:h-[20px] transition-transform group-hover:-translate-x-1">
+            <path d="m12 19-7-7 7-7" />
+            <path d="M19 12H5" />
+          </svg>
+          Back to All Projects
+        </a>
+
+        <header class="mb-8 sm:mb-12">
+          <div class="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-6">
+            <span
+              class="inline-block px-2.5 py-1 sm:px-3 sm:py-1 bg-gray-100 text-gray-800 text-[10px] sm:text-xs font-bold tracking-wider rounded-full uppercase border border-gray-200">M.Tech
+              Seminar</span>
+            <span class="text-gray-400 text-xs sm:text-sm font-medium">June 2025</span>
+          </div>
+          <h1
+            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-6 sm:mb-8 leading-tight">
+            Mastering the "Middle Ground": A Technical Analysis of Hybrid Rocket Regression Rates
+          </h1>
+
+          <div
+            class="w-full h-[250px] sm:h-[300px] md:h-[500px] rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden mb-8 sm:mb-12 shadow-2xl shadow-gray-200/50 relative">
+            <img src="/images/hybrid rocket engine.png" alt="Rocket engine test"
+              class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 text-white">
+              <p class="text-xs sm:text-sm font-bold tracking-widest opacity-80 uppercase mb-1 sm:mb-2">Propulsion
+                Research</p>
+              <h3 class="text-xl sm:text-2xl font-bold">Research on Hybrid Rockets</h3>
+            </div>
+          </div>
+        </header>
+      </div>
+
+      <article
+        class="prose max-w-none text-base sm:text-lg md:text-xl text-gray-600 font-light leading-relaxed space-y-6 sm:space-y-8 pb-12">
+
+        <p class="scroll-fade-up">
+          In the modern aerospace landscape, the quest for the "perfect" propulsion system often feels like a tug-of-war
+          between two extremes. On one side, <strong class="text-gray-900 font-medium">Solid Rocket Motors
+            (SRMs)</strong> offer high thrust and structural simplicity but are essentially "one-shot" devices that
+          cannot be throttled or easily aborted. On the other, <strong class="text-gray-900 font-medium">Liquid
+            Bipropellant Engines</strong> provide elite performance and full control, but at the cost of extreme
+          mechanical complexity, involving cryogenic storage and high-pressure turbopumps.
+        </p>
+
+        <p class="scroll-fade-up delay-100">
+          <strong class="text-gray-900 font-medium">Hybrid Rocket Propulsion</strong> is the bridge between these two
+          paradigms. By utilizing a solid fuel grain—typically Hydroxyl-Terminated Polybutadiene (HTPB)—and a liquid or
+          gaseous oxidizer, hybrids offer a unique combination of inherent safety, real-time throttleability, and
+          reduced operational costs. However, the "Achilles' heel" of hybrid systems is the fuel regression rate. This
+          post explores my research into the physics of this limitation and the advanced strategies—from oxidizer
+          selection to nano-energetic additives—used to overcome it.
+        </p>
+
+        <hr class="border-gray-200 my-10 sm:my-16 scroll-fade-up" />
+
+        <div class="scroll-fade-up">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mt-8 sm:mt-12 mb-4 sm:mb-6">1. The Physics of the
+            Combustion Mechanism</h2>
+          <p class="mb-4 sm:mb-6">
+            Unlike solid rockets, where the fuel and oxidizer are pre-mixed, a hybrid motor operates in a heterogeneous
+            combustion regime. Combustion is governed by a turbulent boundary layer formed over the fuel surface.
+          </p>
+
+          <p class="font-bold text-gray-900 mb-3 sm:mb-4">The Boundary Layer Process:</p>
+          <ul class="list-disc pl-5 sm:pl-6 space-y-3 sm:space-y-4 marker:text-gray-300">
+            <li><strong class="text-gray-900 font-medium">Oxidizer Core Flow:</strong> A high-velocity oxidizer gas
+              flows through the center (port) of the solid fuel grain.</li>
+            <li><strong class="text-gray-900 font-medium">Pyrolysis:</strong> Heat from the flame zone is transferred
+              back to the fuel surface via convection and radiation, causing the solid fuel to vaporize (pyrolyze).</li>
+            <li><strong class="text-gray-900 font-medium">Flame Zone:</strong> The vaporized fuel and gaseous oxidizer
+              meet in a narrow flame zone within the boundary layer, where the reaction occurs.</li>
+          </ul>
+
+          <p class="mt-4 sm:mt-6">
+            The speed at which this fuel surface recedes is known as the <strong
+              class="text-gray-900 font-medium">regression rate (r&#775;)</strong>. In conventional HTPB fuels, this
+            rate is often as low as 1&ndash;3 mm/s, necessitating complex "multi-port" grain geometries to achieve
+            sufficient thrust.
+          </p>
+        </div>
+
+        <div class="scroll-fade-up delay-100">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mt-10 sm:mt-16 mb-4 sm:mb-6">2. The Mathematical
+            Framework: The Marxman Theory</h2>
+          <p class="mb-4 sm:mb-6">
+            To engineer a solution, we must model the energy balance at the fuel surface. The foundational theory,
+            introduced by Marxman, Wooldridge, and Muzzy, relates the regression rate to the oxidizer mass flux
+            (G<sub>ox</sub>).
+          </p>
+
+          <p class="font-bold text-gray-900 mb-2">The Fundamental Relation</p>
+          <p class="mb-4 sm:mb-6">The classic empirical formula used in the industry is:</p>
+
+          <div
+            class="my-6 sm:my-10 p-6 sm:p-8 bg-[#F8F9FA] rounded-[1.5rem] sm:rounded-[2rem] text-center shadow-sm border border-gray-100">
+            <code
+              class="text-gray-900 text-xl sm:text-2xl md:text-3xl font-serif tracking-wider font-semibold block break-words">
+                  r&#775; = a &middot; G<sub>ox</sub><sup>n</sup>
+              </code>
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mt-6 sm:mt-8 text-xs sm:text-sm text-gray-600 font-sans text-left">
+              <div class="p-4 sm:p-5 border border-gray-200 rounded-xl sm:rounded-2xl bg-white">
+                <b class="text-gray-900 block mb-1 sm:mb-2 font-semibold">r&#775; &amp; G<sub>ox</sub></b>
+                <b>r&#775;:</b> Fuel regression rate (mm/s)<br>
+                <b>G<sub>ox</sub>:</b> Oxidizer mass flux (kg/m<sup>2</sup> &middot; s)
+              </div>
+              <div class="p-4 sm:p-5 border border-gray-200 rounded-xl sm:rounded-2xl bg-white">
+                <b class="text-gray-900 block mb-1 sm:mb-2 font-semibold">Empirical Coefficients (a, n)</b>
+                Dependent on the specific fuel-oxidizer combination and internal flow dynamics.
+              </div>
+            </div>
+          </div>
+
+          <p class="font-bold text-gray-900 mb-2">The Energy Balance Equation</p>
+          <p class="mb-4 sm:mb-6">At a deeper level, the regression rate is determined by the heat flux required to
+            gasify the solid fuel:</p>
+
+          <div
+            class="my-6 sm:my-10 p-6 sm:p-8 bg-[#F8F9FA] rounded-[1.5rem] sm:rounded-[2rem] text-center shadow-sm border border-gray-100">
+            <code
+              class="text-gray-900 text-xl sm:text-2xl md:text-3xl font-serif tracking-wider font-semibold block break-words">
+                  &rho;<sub>f</sub> r&#775; &Delta;H = Q&#775;<sub>w</sub>
+              </code>
+            <div
+              class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-8 text-xs sm:text-sm text-gray-600 font-sans text-left">
+              <div class="p-4 sm:p-5 border border-gray-200 rounded-xl sm:rounded-2xl bg-white">
+                <b class="text-gray-900 block mb-1 sm:mb-2 font-semibold">&rho;<sub>f</sub></b> Density of the solid
+                fuel.
+              </div>
+              <div class="p-4 sm:p-5 border border-gray-200 rounded-xl sm:rounded-2xl bg-white">
+                <b class="text-gray-900 block mb-1 sm:mb-2 font-semibold">&Delta;H</b> Effective heat of gasification
+                (energy required to turn solid fuel into gas).
+              </div>
+              <div class="p-4 sm:p-5 border border-gray-200 rounded-xl sm:rounded-2xl bg-white">
+                <b class="text-gray-900 block mb-1 sm:mb-2 font-semibold">Q&#775;<sub>w</sub></b> Total heat flux
+                transferred to the fuel wall.
+              </div>
+            </div>
+          </div>
+
+          <p>
+            My research highlights that to increase r&#775;, we must either increase the heat flux (Q&#775;<sub>w</sub>)
+            through enhanced convection/radiation or reduce the energy barrier (&Delta;H) of the fuel.
+          </p>
+        </div>
+
+        <div class="scroll-fade-up">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mt-10 sm:mt-16 mb-4 sm:mb-6">3. Oxidizer Face-Off: GOX
+            vs. N<sub>2</sub>O</h2>
+          <p class="mb-6 sm:mb-8">
+            A major pillar of my study is the comparative analysis of Gaseous Oxygen (GOX) and Nitrous Oxide
+            (N<sub>2</sub>O). While GOX is the performance standard, N<sub>2</sub>O is increasingly favored for tactical
+            and educational missions.
+          </p>
+
+          <div
+            class="overflow-x-auto my-6 sm:my-10 border border-gray-200 rounded-[1rem] sm:rounded-2xl shadow-sm bg-white">
+            <table class="w-full text-left border-collapse min-w-[500px]">
+              <thead>
+                <tr class="bg-gray-50 border-b border-gray-200 text-sm sm:text-base">
+                  <th class="p-4 sm:p-5 font-bold text-gray-900">Property</th>
+                  <th class="p-4 sm:p-5 font-bold text-gray-900">Gaseous Oxygen (O<sub>2</sub>)</th>
+                  <th class="p-4 sm:p-5 font-bold text-gray-900">Nitrous Oxide (N<sub>2</sub>O)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 text-sm sm:text-base">
+                <tr>
+                  <td class="p-4 sm:p-5 font-semibold text-gray-900">Specific Impulse (I<sub>sp</sub>)</td>
+                  <td class="p-4 sm:p-5 text-gray-600">Superior: 275&ndash;300 s</td>
+                  <td class="p-4 sm:p-5 text-gray-600">Lower: 230&ndash;250 s</td>
+                </tr>
+                <tr>
+                  <td class="p-4 sm:p-5 font-semibold text-gray-900">Regression Rate</td>
+                  <td class="p-4 sm:p-5 text-gray-600">High (Reference standard)</td>
+                  <td class="p-4 sm:p-5 text-gray-600">20&ndash;30% lower than GOX</td>
+                </tr>
+                <tr>
+                  <td class="p-4 sm:p-5 font-semibold text-gray-900">Storage</td>
+                  <td class="p-4 sm:p-5 text-gray-600">Cryogenic (LOX) or High Pressure</td>
+                  <td class="p-4 sm:p-5 text-gray-600">Ambient / Self-Pressurizing</td>
+                </tr>
+                <tr>
+                  <td class="p-4 sm:p-5 font-semibold text-gray-900">Safety / Handling</td>
+                  <td class="p-4 sm:p-5 text-gray-600">Highly reactive; reactive with many polymers</td>
+                  <td class="p-4 sm:p-5 text-gray-600">Non-toxic; stable at room temperature</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="mb-4 sm:mb-6">
+            <strong class="text-gray-900 font-medium">The Engineering Verdict:</strong> N<sub>2</sub>O is an
+            "operational winner" because it eliminates the need for complex pressurization systems (like helium
+            bottles). However, its endothermic decomposition and the presence of inert nitrogen dilute the flame,
+            significantly slowing the fuel regression.
+          </p>
+        </div>
+
+        <div class="scroll-fade-up">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mt-10 sm:mt-16 mb-4 sm:mb-6">4. Bridging the Gap:
+            Nano-Energetic Additives</h2>
+          <p class="mb-4 sm:mb-6">
+            How do we reclaim the 25% regression loss in N<sub>2</sub>O systems? The answer lies in fuel-side
+            augmentation using nano-sized particles.
+          </p>
+
+          <p class="font-bold text-gray-900 mb-3 sm:mb-4">The Role of Nano-Aluminum (Al)</p>
+          <p class="mb-3 sm:mb-4">Incorporating aluminum particles—specifically nano-sized flakes (70 nm)—into the HTPB
+            matrix creates several beneficial effects:</p>
+
+          <ul class="list-disc pl-5 sm:pl-6 space-y-3 sm:space-y-4 marker:text-gray-300">
+            <li><strong class="text-gray-900 font-medium">Enhanced Heat Feedback:</strong> Aluminum increases the flame
+              temperature and enhances radiative heat transfer back to the fuel surface.</li>
+            <li><strong class="text-gray-900 font-medium">Fluoropolymer Coatings:</strong> Using coatings like Viton-A
+              on nano-aluminum facilitates ignition by releasing fluorine species that disrupt the natural oxide layer
+              of the metal.</li>
+            <li><strong class="text-gray-900 font-medium">Performance Gains:</strong> Research shows that 13 wt% of
+              nano-aluminum can increase regression rates by up to 25% in N<sub>2</sub>O systems, effectively matching
+              the performance of pure GOX systems while maintaining the logistical benefits of Nitrous Oxide.</li>
+          </ul>
+        </div>
+
+        <hr class="border-gray-200 my-10 sm:my-16 scroll-fade-up" />
+
+        <div class="scroll-fade-up p-6 sm:p-8 bg-[#F8F9FA] rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">5. Strategic Implications and Conclusion
+          </h2>
+          <p class="mb-4 sm:mb-6">
+            Engineering hybrid propulsion is not just about maximizing raw power; it is about holistic system
+            optimization. By understanding the interplay between chemical additives and port geometry, we can design
+            motors that are:
+          </p>
+
+          <ul class="list-none space-y-4 sm:space-y-5 mb-6 sm:mb-8 text-sm sm:text-base md:text-lg">
+            <li class="flex items-start gap-3 sm:gap-4">
+              <div
+                class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white flex items-center justify-center shrink-0 border border-gray-200 shadow-sm">
+                <svg class="w-3 h-3 sm:w-4 sm:h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <span class="mt-0.5 sm:mt-1"><strong class="text-gray-900 font-medium">Cost-Effective:</strong>
+                Eliminating turbopumps reduces development costs by orders of magnitude.</span>
+            </li>
+            <li class="flex items-start gap-3 sm:gap-4">
+              <div
+                class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white flex items-center justify-center shrink-0 border border-gray-200 shadow-sm">
+                <svg class="w-3 h-3 sm:w-4 sm:h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <span class="mt-0.5 sm:mt-1"><strong class="text-gray-900 font-medium">Safe:</strong> Hybrids are ideal
+                for crewed missions and reusable launch vehicles where safety is paramount.</span>
+            </li>
+            <li class="flex items-start gap-3 sm:gap-4">
+              <div
+                class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white flex items-center justify-center shrink-0 border border-gray-200 shadow-sm">
+                <svg class="w-3 h-3 sm:w-4 sm:h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <span class="mt-0.5 sm:mt-1"><strong class="text-gray-900 font-medium">Scalable:</strong> While scaling is
+                non-linear, my research into modified scaling laws (D<sup>-n</sup> dependence) provides a more accurate
+                roadmap for taking subscale testbeds to full-scale flight systems.</span>
+            </li>
+          </ul>
+
+          <p class="text-gray-700 text-sm sm:text-base font-medium">
+            In summary, although N<sub>2</sub>O-based systems trade off some peak impulse for operational simplicity,
+            the strategic use of nano-energetic additives provides a viable path forward for the next generation of
+            sounding rockets, tactical vehicles, and orbital stages.
+          </p>
+        </div>
+
+        <section class="mt-12 sm:mt-20 py-8 sm:py-12 border-y border-gray-100 scroll-fade-up">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 sm:gap-8">
+            <div>
+              <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">Technical Documentation</h3>
+              <p class="text-gray-500 text-sm sm:text-base font-light">Download the full project report.</p>
+            </div>
+            <a href="/pdf/Seminar Report_Regression Rate Analysis of Hybrid Rocket Motors_Darsh Butala_24M0032.pdf"
+              target="_blank"
+              class="w-full sm:w-auto flex justify-center items-center gap-2 sm:gap-3 bg-black text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-medium hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl shrink-0 text-sm sm:text-base">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="sm:w-[20px] sm:h-[20px]">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                <polyline points="14 2 14 8 20 8" />
+                <path d="M12 18v-6" />
+                <path d="m9 15 3 3 3-3" />
+              </svg>
+              View Project PDF
+            </a>
+          </div>
+        </section>
+
+        <div
+          class="mt-10 sm:mt-16 p-6 sm:p-8 bg-[#F8F9FA] rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 flex items-center gap-4 sm:gap-6 scroll-fade-up">
+          <div>
+            <h4 class="font-bold text-gray-900 text-lg sm:text-xl">Written by Darsh B.</h4>
+            <p class="text-gray-500 text-sm sm:text-base mt-1 font-light">A Masters Student in Aerospace Engineering
+              (Propulsion) IIT BOMBAY</p>
+          </div>
+        </div>
+
+      </article>
+    </div>
+  </main>
+
+  <!-- <section class="py-16 md:py-32 bg-white">
+    <div class="container mx-auto px-5 sm:px-6 scroll-fade-up">
+      <div
+        class="bg-black rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 md:p-24 text-center relative overflow-hidden shadow-2xl shadow-gray-200">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-30 pointer-events-none">
+          <div
+            class="absolute -top-[50%] -left-[20%] w-[80%] h-[80%] rounded-full bg-gray-800 blur-[80px] sm:blur-[120px]">
+          </div>
+          <div
+            class="absolute bottom-[0%] right-[0%] w-[60%] h-[60%] rounded-full bg-gray-700 blur-[80px] sm:blur-[120px]">
+          </div>
+        </div>
+
+        <div class="relative z-10 max-w-3xl mx-auto">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">Request My Full Resume</h2>
+          <p class="text-gray-400 mb-8 sm:mb-10 text-base sm:text-xl font-light leading-relaxed">
+            Enter your email below to receive a detailed breakdown of my academic background, aerospace research, and
+            cross-disciplinary projects.
+          </p>
+
+          <form class="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-xl mx-auto mb-8 sm:mb-10"
+            onsubmit="event.preventDefault();">
+            <input type="email" placeholder="Enter your email address"
+              class="flex-grow px-6 py-4 sm:px-8 sm:py-5 rounded-full bg-white/10 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all backdrop-blur-sm text-base sm:text-lg"
+              required />
+            <button
+              class="px-8 py-4 sm:px-10 sm:py-5 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition-colors shadow-lg text-base sm:text-lg whitespace-nowrap">
+              Send
+            </button>
+          </form>
+
+          <div
+            class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-gray-200 text-sm sm:text-base font-medium pt-6 sm:pt-8 border-t border-white/10">
+            <span class="hidden sm:inline-block">Or connect directly through:</span>
+
+            <a href="mailto:darshdutala.dc@gmail.com"
+              class="flex items-center gap-2 hover:text-white transition-colors group">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="sm:w-[18px] sm:h-[18px] text-gray-200 group-hover:text-white transition-colors">
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              darshdutala.dc@gmail.com
+            </a>
+
+            <span class="hidden sm:inline-block text-gray-400">•</span>
+
+            <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer"
+              class="flex items-center gap-2 hover:text-white transition-colors group">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="sm:w-[18px] sm:h-[18px] text-gray-200 group-hover:text-white transition-colors">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              LinkedIn
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <footer id="contact" class="bg-[#F8F9FA] border-t border-gray-100 pt-16 md:pt-24 pb-8 md:pb-12">
+    <div class="container mx-auto px-5 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-16 mb-16 sm:mb-20 scroll-fade-up">
+
+        <div class="space-y-4 sm:space-y-6">
+          <h4 class="text-xl sm:text-2xl font-bold text-black">DARSH B.</h4>
+          <p class="text-gray-500 leading-relaxed text-sm sm:text-base font-light">
+            Engineering the future through a unique blend of aerospace propulsion, computational modeling, and financial
+            intelligence.
+          </p>
+        </div>
+
+        <div>
+          <h5 class="text-xs sm:text-sm font-bold text-black uppercase tracking-widest mb-6 sm:mb-8">Expertise</h5>
+          <ul class="space-y-3 sm:space-y-4 font-light">
+            <li><a href="#" class="text-sm sm:text-base text-gray-500 hover:text-black transition-colors">Integrated
+                Propulsion</a></li>
+            <li><a href="#" class="text-sm sm:text-base text-gray-500 hover:text-black transition-colors">Computational
+                Modeling</a></li>
+            <li><a href="#" class="text-sm sm:text-base text-gray-500 hover:text-black transition-colors">Financial
+                System Design</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="text-xs sm:text-sm font-bold text-black uppercase tracking-widest mb-6 sm:mb-8">Quick Links</h5>
+          <ul class="space-y-3 sm:space-y-4 font-light">
+            <li><a href="index.html#about"
+                class="text-sm sm:text-base text-gray-500 hover:text-black transition-colors">About Me</a></li>
+            <li><a href="index.html#skills"
+                class="text-sm sm:text-base text-gray-500 hover:text-black transition-colors">Skills</a></li>
+            <li><a href="index.html#insights"
+                class="text-sm sm:text-base text-gray-500 hover:text-black transition-colors">Research & Blog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="text-xs sm:text-sm font-bold text-black uppercase tracking-widest mb-6 sm:mb-8">Contact</h5>
+          <ul class="space-y-4 sm:space-y-6 font-light">
+
+            <li class="flex items-center gap-3 sm:gap-4 group">
+              <div class="text-gray-400 group-hover:text-black transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="sm:w-[20px] sm:h-[20px]">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </div>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+                class="text-sm sm:text-base text-gray-500 group-hover:text-black transition-colors">LinkedIn</a>
+            </li>
+
+            <li class="flex items-center gap-3 sm:gap-4 group">
+              <div class="text-gray-400 group-hover:text-black transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="sm:w-[20px] sm:h-[20px]">
+                  <path
+                    d="M15 22v-4a4.8 4.8 0 0 0-1-3c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4">
+                  </path>
+                  <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                </svg>
+              </div>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+                class="text-sm sm:text-base text-gray-500 group-hover:text-black transition-colors">GitHub</a>
+            </li>
+
+            <!-- <li class="flex items-center gap-3 sm:gap-4 group">
+              <div class="text-gray-400 group-hover:text-black transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="sm:w-[20px] sm:h-[20px]">
+                  <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+                  <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+                </svg>
+              </div>
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer"
+                class="text-sm sm:text-base text-gray-500 group-hover:text-black transition-colors">X (Twitter)</a>
+            </li> -->
+
+            <li class="flex items-center gap-3 sm:gap-4 group">
+              <div class="text-gray-400 group-hover:text-black transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="sm:w-[20px] sm:h-[20px]">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+              </div>
+              <a href="mailto:darshbutala.dc@gmail.com"
+                class="text-sm sm:text-base text-gray-500 group-hover:text-black transition-colors">darshbutala.dc@gmail.com</a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-gray-100 pt-8 sm:pt-10 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6 scroll-fade-up delay-200">
+        <p class="text-gray-400 text-xs sm:text-sm text-center md:text-left">© 2026 Darsh B. All Rights Reserved.</p>
+        <div class="flex gap-6 sm:gap-8 text-xs sm:text-sm">
+          <a href="#" class="text-gray-400 hover:text-black transition-colors">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-black transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Navbar Logic
+      const navbar = document.getElementById('navbar');
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const iconMenu = document.getElementById('icon-menu');
+      const iconClose = document.getElementById('icon-close');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      let isMobileMenuOpen = false;
+
+      const handleScroll = () => {
+        if (window.scrollY > 20) {
+          navbar.classList.add('nav-scrolled');
+          navbar.classList.remove('nav-transparent');
+        } else {
+          navbar.classList.add('nav-transparent');
+          navbar.classList.remove('nav-scrolled');
+        }
+      };
+
+      handleScroll();
+      window.addEventListener('scroll', handleScroll);
+
+      const toggleMenu = () => {
+        isMobileMenuOpen = !isMobileMenuOpen;
+        if (isMobileMenuOpen) {
+          mobileMenu.classList.add('mobile-menu-open');
+          iconMenu.classList.add('hidden');
+          iconMenu.classList.remove('block');
+          iconClose.classList.add('block');
+          iconClose.classList.remove('hidden');
+        } else {
+          mobileMenu.classList.remove('mobile-menu-open');
+          iconMenu.classList.add('block');
+          iconMenu.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+          iconClose.classList.remove('block');
+        }
+      };
+
+      mobileMenuBtn.addEventListener('click', toggleMenu);
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (isMobileMenuOpen) toggleMenu();
+        });
+      });
+
+      // Intersection Observer for Animations
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+      };
+
+      const scrollObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const animatedElements = document.querySelectorAll('.scroll-fade-up, .scroll-fade-left, .scroll-fade-right, .scroll-scale-up');
+
+      animatedElements.forEach(el => {
+        if (!el.classList.contains('in-view')) {
+          scrollObserver.observe(el);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
